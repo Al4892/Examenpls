@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditorInternal;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
+using Unity.VisualScripting;
 
 public class Inventarios : MonoBehaviour
 {
@@ -23,10 +25,7 @@ public class Inventarios : MonoBehaviour
     public Image[] Seleccion;
     public Sprite[] Selection_Sprite;
     public int Id_Selected;
-
-
-    //[Header("Objeto activo")]
-    //[SerializeField]
+   
     public void navegar()
     {
         switch (fasesinv)
@@ -36,13 +35,13 @@ public class Inventarios : MonoBehaviour
                 Opciones.SetActive(false);//
 
                 inv[1].SetActive(false); 
-                if(Input.GetKeyDown(KeyCode.W)&& id_equipo>0) 
+                if(Input.GetKeyDown(KeyCode.A)&& id_equipo>0) 
                 {
                     id_equipo--;
                 
                 
                 } 
-                if(Input.GetKeyDown(KeyCode.S)&& id_equipo< Equipo.Count-1) 
+                if(Input.GetKeyDown(KeyCode.D)&& id_equipo< Equipo.Count-1) 
                 {
                     id_equipo++;
                 
@@ -53,8 +52,9 @@ public class Inventarios : MonoBehaviour
                 {
                     fasesinv = 1;
                 }
+
             break;
-                case 1:
+               case 1:
                 selector.SetActive(true);//
                 Opciones.SetActive(false);//
                 if(Input.GetKeyDown(KeyCode.F)&& Bag[id].GetComponent<Image>().enabled==true)//
@@ -85,7 +85,7 @@ public class Inventarios : MonoBehaviour
                     fasesinv = 0;
                 
                 }
-                break;
+               break;
                 case 2:
                 if (Input.GetKeyDown(KeyCode.G))
                 {
@@ -113,8 +113,36 @@ public class Inventarios : MonoBehaviour
                             {
                                 Equipo[id_equipo].GetComponent<Image>().sprite = Bag[id].GetComponent<Image>().sprite;
                                 Equipo[id_equipo].GetComponent<Image>().enabled = true;
+                                if (Bag[id].CompareTag("Item")==true)
+                                {
+                                 Equipo[id_equipo].AddComponent<Objeto1>().enabled = true;
+                                    Equipo[id_equipo].tag = "Item";
+                                    Bag[id].tag = null;
+
+                                    Destroy(Bag[id].GetComponent<Objeto1>());
+
+                                } 
+                                if (Bag[id].CompareTag("Item2")==true)
+                                {
+                                 Equipo[id_equipo].AddComponent<Objeto2>().enabled = true;
+                                    Equipo[id_equipo].tag = "Item2";
+                                    Bag[id].tag = null;
+
+                                    Destroy(Bag[id].GetComponent<Objeto2>());
+
+                                } 
+                                if (Bag[id].CompareTag("Item3")==true)
+                                {
+                                 Equipo[id_equipo].AddComponent<Objeto3>().enabled = true;
+                                    Equipo[id_equipo].tag = "Item3";
+                                    Bag[id].tag = null;
+                                    Destroy(Bag[id].GetComponent<Objeto3>());
+
+                                }
+                                
                                 Bag[id].GetComponent<Image>().sprite = null;
                                 Bag[id].GetComponent<Image>().enabled = false;
+                                
                             }
                             else
                             {
@@ -127,17 +155,38 @@ public class Inventarios : MonoBehaviour
                             fasesinv = 0;
 
                         }
-                        break;
+                    break;
                         case 1:
                         Seleccion[0].sprite = Selection_Sprite[0];
                         Seleccion[1].sprite = Selection_Sprite[1];
                         if (Input.GetKeyDown(KeyCode.F))
                         {
                             Bag[id].GetComponent<Image>().sprite = null;
-                            Bag[id].GetComponent<Image>().enabled = false; ;
+                            Bag[id].GetComponent<Image>().enabled = false;
+                            if (Bag[id].GetComponent<Objeto1>() != null) 
+                            {
+                                Destroy(Bag[id].GetComponent<Objeto1>());
+                                Bag[id].tag = null;
+                             
+                            
+                            } 
+                            if (Bag[id].GetComponent<Objeto2>() != null) 
+                            {
+                                Destroy(Bag[id].GetComponent<Objeto2>());
+                                Bag[id].tag = null;
+
+                            } 
+                            if (Bag[id].GetComponent<Objeto3>() != null) 
+                            {
+                                Destroy(Bag[id].GetComponent<Objeto3>());
+                                Bag[id].tag = null;
+
+
+                            }
                             fasesinv = 1;
 
-                        }
+                        } 
+                        
                         break;
                 }
                 break;
@@ -148,31 +197,77 @@ public class Inventarios : MonoBehaviour
 
        
     }
-    
-     void OnTriggerEnter2D(Collider2D collision)
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Item"))
         {
-           
-            for(int i = 0; i < Bag.Count; i++)
+
+            for (int i = 0; i < Bag.Count; i++)
             {
                 if (Bag[i].GetComponent<Image>().enabled == false)
                 {
 
-                 Bag[i].GetComponent<Image>().enabled = true;
-                 Bag[i].GetComponent<Image>().sprite = collision.GetComponent<SpriteRenderer>().sprite;
+                    Bag[i].GetComponent<Image>().enabled = true;
+                    Bag[i].GetComponent<Image>().sprite = collision.GetComponent<SpriteRenderer>().sprite;
+                    Bag[i].AddComponent<Objeto1>().enabled = true;
+                    Bag[i].tag = "Item";
+                    collision.gameObject.SetActive(false);
+                    
+
+
                     break;
                 }
+
             }
-            
+
         }
-        
+        if (collision.CompareTag("Item2"))
+        {
+
+            for (int i = 0; i < Bag.Count; i++)
+            {
+                if (Bag[i].GetComponent<Image>().enabled == false)
+                {
+
+                    Bag[i].GetComponent<Image>().enabled = true;
+                    Bag[i].GetComponent<Image>().sprite = collision.GetComponent<SpriteRenderer>().sprite;
+                    Bag[i].AddComponent<Objeto2>().enabled = true;
+                    Bag[i].tag= "Item2";
+                    collision.gameObject.SetActive(false);
+
+
+                    break;
+                }
+
+            }
+
+        }
+        if (collision.CompareTag("Item3"))
+        {
+
+            for (int i = 0; i < Bag.Count; i++)
+            {
+                if (Bag[i].GetComponent<Image>().enabled == false)
+                {
+
+                    Bag[i].GetComponent<Image>().enabled = true;
+                    Bag[i].GetComponent<Image>().sprite = collision.GetComponent<SpriteRenderer>().sprite;
+                    Bag[i].AddComponent<Objeto3>().enabled=true;
+                    Bag[i].tag = "Item3";
+                    collision.gameObject.SetActive(false);
+
+                    
+
+                    break;
+                }
+
+            }
+
+        }
+
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
 
     private void Update()
     {
@@ -191,4 +286,5 @@ public class Inventarios : MonoBehaviour
             Activarinv = !Activarinv;
         }
     }
+   
 }
