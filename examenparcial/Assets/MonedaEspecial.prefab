@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1604001384488300168}
   m_Layer: 0
   m_Name: MonedaEspecial
-  m_TagString: Item
+  m_TagString: Item3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,6 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70367d90706a64253ac01ac04937f4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bag: []
+  icons: {fileID: 0}
+  Rareza: 0
+  descripcion: {fileID: 0}
+  info: {fileID: 0}
 --- !u!222 &7797994125764378192
 CanvasRenderer:
   m_ObjectHideFlags: 0

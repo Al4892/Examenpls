@@ -26,6 +26,7 @@ public class Inventarios : MonoBehaviour
     public Sprite[] Selection_Sprite;
     public int Id_Selected;
    
+   
     public void navegar()
     {
         switch (fasesinv)
@@ -117,7 +118,7 @@ public class Inventarios : MonoBehaviour
                                 {
                                  Equipo[id_equipo].AddComponent<Objeto1>().enabled = true;
                                     Equipo[id_equipo].tag = "Item";
-                                    Bag[id].tag = null;
+                                    Bag[id].tag = "Untagged";
 
                                     Destroy(Bag[id].GetComponent<Objeto1>());
 
@@ -126,7 +127,7 @@ public class Inventarios : MonoBehaviour
                                 {
                                  Equipo[id_equipo].AddComponent<Objeto2>().enabled = true;
                                     Equipo[id_equipo].tag = "Item2";
-                                    Bag[id].tag = null;
+                                    Bag[id].tag = "Untagged";
 
                                     Destroy(Bag[id].GetComponent<Objeto2>());
 
@@ -135,7 +136,7 @@ public class Inventarios : MonoBehaviour
                                 {
                                  Equipo[id_equipo].AddComponent<Objeto3>().enabled = true;
                                     Equipo[id_equipo].tag = "Item3";
-                                    Bag[id].tag = null;
+                                    Bag[id].tag = "Untagged";
                                     Destroy(Bag[id].GetComponent<Objeto3>());
 
                                 }
@@ -147,9 +148,55 @@ public class Inventarios : MonoBehaviour
                             else
                             {
                                 Sprite obj = Bag[id].GetComponent<Image>().sprite;
+                                Bag[id].GetComponent<Image>().sprite = Equipo[id_equipo].GetComponent<Image>().sprite;
+                                Equipo[id_equipo].GetComponent<Image>().sprite = obj;
 
-                                Bag[id].GetComponent<Image>().sprite = Equipo[id].GetComponent<Image>().sprite;
-                                Equipo[id_equipo].GetComponent < Image>().sprite = obj;
+                                string tempTag = Bag[id].tag;
+                                Bag[id].tag = Equipo[id_equipo].tag;
+                                Equipo[id_equipo].tag = tempTag;
+
+                                if (Bag[id].tag == "Item")
+                                {
+                                    if (Equipo[id_equipo].GetComponent<Objeto1>() == null)
+                                    {
+                                        Bag[id].GetComponent<Objeto1>().enabled = Equipo[id_equipo].AddComponent<Objeto1>();
+                                                                                                                   
+                                      
+                                    }
+                                    Equipo[id_equipo].tag = "Item";
+                                    Destroy(Equipo[id_equipo].GetComponent<Objeto2>());
+                                    Destroy(Equipo[id_equipo].GetComponent<Objeto3>());
+                                    
+
+                                } 
+                                if (Bag[id].tag == "Item2")
+                                {
+                                    
+                                    if (Equipo[id_equipo].GetComponent<Objeto2>()==null)
+                                    {
+                                        
+                                        
+                                       Bag[id].GetComponent<Objeto2>().enabled = Equipo[id_equipo].AddComponent<Objeto2>();
+                                        
+                                    }
+                                    Equipo[id_equipo].tag = "Item2";
+                                    Destroy(Equipo[id_equipo].GetComponent<Objeto1>());
+                                    Destroy(Equipo[id_equipo].GetComponent<Objeto3>());
+
+
+                                } 
+                                if (Bag[id].tag == "Item3")
+                                {
+                                    if (Equipo[id_equipo].GetComponent<Objeto3>() == null)
+                                    {
+                                        Bag[id].GetComponent<Objeto3>().enabled = Equipo[id_equipo].AddComponent<Objeto3>();
+                                        
+                                    }
+                                    Equipo[id_equipo].tag= "Item3";
+                                    Destroy(Equipo[id_equipo].GetComponent<Objeto1>());
+                                    Destroy(Equipo[id_equipo].GetComponent<Objeto2>());
+
+                                }
 
                             }
                             fasesinv = 0;
@@ -166,20 +213,20 @@ public class Inventarios : MonoBehaviour
                             if (Bag[id].GetComponent<Objeto1>() != null) 
                             {
                                 Destroy(Bag[id].GetComponent<Objeto1>());
-                                Bag[id].tag = null;
+                                Bag[id].tag= "Untagged";
                              
                             
                             } 
                             if (Bag[id].GetComponent<Objeto2>() != null) 
                             {
                                 Destroy(Bag[id].GetComponent<Objeto2>());
-                                Bag[id].tag = null;
+                                Bag[id].tag = "Untagged";
 
                             } 
                             if (Bag[id].GetComponent<Objeto3>() != null) 
                             {
                                 Destroy(Bag[id].GetComponent<Objeto3>());
-                                Bag[id].tag = null;
+                                Bag[id].tag = "Untagged";
 
 
                             }
@@ -285,6 +332,11 @@ public class Inventarios : MonoBehaviour
         {
             Activarinv = !Activarinv;
         }
+        Vector3 posicionRaton = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        posicionRaton.z = 0f;  
+
+        
+        transform.position = posicionRaton;
     }
    
 }

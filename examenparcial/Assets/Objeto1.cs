@@ -8,7 +8,7 @@ public class Objeto1 : Item
     void Start()
     {
         //Raritys xd= Raritys.iron;
-        Setup("Espada","Con ella puedes atacar y derrotar monstruos. +5 Daño",50,Raritys.gold);
+        Setup("Espada", "Con ella puedes atacar y derrotar monstruos. +45 Daño", 50, Raritys.Comun);
     }
 
     // Update is called once per frame
