@@ -155,15 +155,16 @@ public class Inventarios : MonoBehaviour
                                 Bag[id].tag = Equipo[id_equipo].tag;
                                 Equipo[id_equipo].tag = tempTag;
 
+
                                 if (Bag[id].tag == "Item")
                                 {
                                     if (Equipo[id_equipo].GetComponent<Objeto1>() == null)
                                     {
                                         Bag[id].GetComponent<Objeto1>().enabled = Equipo[id_equipo].AddComponent<Objeto1>();
                                                                                                                    
+                                     Equipo[id_equipo].tag = "Item";
                                       
                                     }
-                                    Equipo[id_equipo].tag = "Item";
                                     Destroy(Equipo[id_equipo].GetComponent<Objeto2>());
                                     Destroy(Equipo[id_equipo].GetComponent<Objeto3>());
                                     
@@ -177,9 +178,9 @@ public class Inventarios : MonoBehaviour
                                         
                                         
                                        Bag[id].GetComponent<Objeto2>().enabled = Equipo[id_equipo].AddComponent<Objeto2>();
+                                    Equipo[id_equipo].tag = "Item2";
                                         
                                     }
-                                    Equipo[id_equipo].tag = "Item2";
                                     Destroy(Equipo[id_equipo].GetComponent<Objeto1>());
                                     Destroy(Equipo[id_equipo].GetComponent<Objeto3>());
 
@@ -190,9 +191,9 @@ public class Inventarios : MonoBehaviour
                                     if (Equipo[id_equipo].GetComponent<Objeto3>() == null)
                                     {
                                         Bag[id].GetComponent<Objeto3>().enabled = Equipo[id_equipo].AddComponent<Objeto3>();
+                                     Equipo[id_equipo].tag= "Item3";
                                         
                                     }
-                                    Equipo[id_equipo].tag= "Item3";
                                     Destroy(Equipo[id_equipo].GetComponent<Objeto1>());
                                     Destroy(Equipo[id_equipo].GetComponent<Objeto2>());
 
