@@ -1,2 +1,2 @@
 # Examenpls
-Examen parcial 1 
+Aqui esta la carpeta de buildeo, puede descargar todo sus archivos
